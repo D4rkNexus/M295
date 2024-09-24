@@ -1,14 +1,24 @@
 package org.example.productmanager.category;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("category")
+@RequestMapping("categorys")
 public class CategoryController {
-    @GetMapping
-    public String getAllCategories() {
-        return "All categories";
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @GetMapping("repository")
+    public List<CategoryData> getCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @PostMapping()
+    public CategoryData createCategory(@RequestBody CategoryData category) {
+        return categoryRepository.save(category);
     }
 }

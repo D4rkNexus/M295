@@ -1,8 +1,10 @@
 package org.example.productmanager.products;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.util.List;
 
 
 @RestController
@@ -10,8 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 // http://localhost:8080/products
 public class ProductController {
 
-    @GetMapping
-    public String getAllProducts() {
-        return "All products";
+    @Autowired
+    ProductRepository productRepository;
+
+    @GetMapping("repository1")
+    public List<ProductData> getAllProducts () {
+        return productRepository.findAll();
+
     }
+
+    @PostMapping
+    public ProductData createProduct(@RequestBody ProductData product) {
+        return productRepository.save(product);
+    }
+
 }
+
