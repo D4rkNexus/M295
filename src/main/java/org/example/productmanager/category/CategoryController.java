@@ -1,24 +1,51 @@
 package org.example.productmanager.category;
 
+import org.example.productmanager.products.ProductData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("categorys")
+@RequestMapping("/categories")
 public class CategoryController {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
-    @GetMapping("repository")
-    public List<CategoryData> getCategories() {
-        return categoryRepository.findAll();
+    // Neue Kategorie erstellen (POST /categories)
+    @PostMapping
+    public CategoryData createCategory(@RequestBody CategoryData category) {
+        return categoryService.createCategory(category);
     }
 
-    @PostMapping()
-    public CategoryData createCategory(@RequestBody CategoryData category) {
-        return categoryRepository.save(category);
+    // Kategorie nach ID anzeigen (GET /categories/{id})
+    @GetMapping("/{id}")
+    public CategoryData getCategoryById(@PathVariable Long id) {
+        return categoryService.getCategoryById(id);
+    }
+
+    // Kategorie aktualisieren (PUT /categories/{id})
+    @PutMapping("/{id}")
+    public CategoryData updateCategory(@PathVariable Long id, @RequestBody CategoryData category) {
+        return categoryService.updateCategory(id, category);
+    }
+
+    // Kategorie löschen (DELETE /categories/{id})
+    @DeleteMapping("/{id}")
+    public void deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+    }
+
+    // Alle Kategorien auflisten (GET /categories)
+    @GetMapping
+    public List<CategoryData> getAllCategories() {
+        return categoryService.getAllCategories();
+    }
+
+    // Alle Produkte einer Kategorie auflisten (GET /categories/{id}/products)
+    @GetMapping("/{id}/products")
+    public List<ProductData> getProductsByCategory(@PathVariable Long id) {
+        return categoryService.getProductsByCategory(id);
     }
 }
