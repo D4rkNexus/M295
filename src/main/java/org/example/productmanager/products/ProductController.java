@@ -5,25 +5,40 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
-@RequestMapping("products")
-// http://localhost:8080/products
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
-    @GetMapping("repository1")
-    public List<ProductData> getAllProducts () {
-        return productService.getAllProducts();
-
-    }
-
+    // Neues Produkt erstellen (POST /products)
     @PostMapping
     public ProductData createProduct(@RequestBody ProductData product) {
-        return productService.save(product);
+        return productService.createProduct(product);
     }
 
-}
+    // Produkt nach ID anzeigen (GET /products/{id})
+    @GetMapping("/{id}")
+    public ProductData getProductById(@PathVariable Long id) {
+        return productService.getProductById(id);
+    }
 
+    // Produkt aktualisieren (PUT /products/{id})
+    @PutMapping("/{id}")
+    public ProductData updateProduct(@PathVariable Long id, @RequestBody ProductData product) {
+        return productService.updateProduct(id, product);
+    }
+
+    // Produkt löschen (DELETE /products/{id})
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+    }
+
+    // Alle Produkte auflisten (GET /products)
+    @GetMapping
+    public List<ProductData> getAllProducts() {
+        return productService.getAllProducts();
+    }
+}
