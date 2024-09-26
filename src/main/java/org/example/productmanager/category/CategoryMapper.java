@@ -1,11 +1,15 @@
 package org.example.productmanager.category;
 
-import jdk.jfr.Category;
-import org.mapstruct.Mapping;
+import org.example.productmanager.category.CategoryData;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
+@Mapper(componentModel = "spring")
 public abstract class CategoryMapper {
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "name", target = "name")
-    @Mapping(source = "price", target = "price")
-public abstract CategoryData toData(Category category);
+
+    // Mapping zum Erstellen einer neuen Kategorie
+    public abstract CategoryData toEntity(String categoryName);
+
+    // Mapping für das Aktualisieren einer Kategorie
+    public abstract void update(String categoryName, @MappingTarget CategoryData category);
 }
