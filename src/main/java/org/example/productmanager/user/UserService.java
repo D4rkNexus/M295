@@ -1,6 +1,8 @@
 package org.example.productmanager.user;
 
-import org.example.productmanager.dto.*;
+import org.example.productmanager.products.dto.ProductCreateDto;
+import org.example.productmanager.products.dto.ProductUpdateDto;
+import org.example.productmanager.user.dto.RegisterDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +48,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public String authenticateUser(String username, String password) {
+    public String authenticateUser(String username) {
         // Beispiel-Funktion, tatsächlich würde dies eine echte Authentifizierung erfordern
+        String password = "";
         Optional<UserData> user = userRepository.findByUsernameAndPassword(username, password);
 
         if (user.isPresent()) {
@@ -57,8 +60,12 @@ public class UserService {
         }
     }
 
-    public UserData registerUser(ProductCreateDto productCreateDto) {
-        UserData user = userMapper.ProductCreateDto(productCreateDto);
+    public UserData registerUser(RegisterDto registerDto) {
+        UserData user = userMapper.fromRegisterDto(registerDto);
+
+        // implementiere passwort von registerDto veschlüsseln und dann
+        // user.setPassword(hashedPassword);
+
         return userMapper.ProductDetailDto(userRepository.save(user));
     }
 
@@ -72,5 +79,9 @@ public class UserService {
 
     public void seedDatabase() {
         // Logik zur Initialbefüllung der Datenbank mit Daten
+    }
+
+    public UserData findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

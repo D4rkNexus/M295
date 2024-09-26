@@ -1,4 +1,4 @@
-package org.example.productmanager.dto;
+package org.example.productmanager.products.dto;
 
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;

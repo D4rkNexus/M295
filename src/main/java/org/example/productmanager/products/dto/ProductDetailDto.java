@@ -1,13 +1,16 @@
-package org.example.productmanager.dto;
+package org.example.productmanager.products.dto;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
-@Schema(description = "ProductCreateDTO Schema")
-public class ProductCreateDto {
+@Schema(description = "ProductDetailDto Schema")
+public class ProductDetailDto {
+
+    @NotNull
+    @Schema(description = "Einzigartige Identifikationsnummer des Produkts", example = "1")
+    private Long id;
 
     @NotNull
     @Schema(description = "Name des Produkts", example = "Laptop")
@@ -21,18 +24,6 @@ public class ProductCreateDto {
     @Schema(description = "Beschreibung des Produkts", example = "Ein leistungsstarker Laptop")
     private String description;
 
-    @NotNull
-    @Schema(description = "ID der zugehörigen Kategorie", example = "2")
-    private Long categoryId;
-
     @Schema(description = "ID des Benutzers, der das Produkt erstellt hat", example = "10")
     private Long createdByUserId;
-
-    public String getPassword() {
-        return null;
-    }
-
-    public String getUsername() {
-        return null;
-    }
 }

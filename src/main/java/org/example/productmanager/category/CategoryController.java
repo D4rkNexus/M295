@@ -2,7 +2,8 @@ package org.example.productmanager.category;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.productmanager.dto.*;
+import org.example.productmanager.products.dto.ProductDetailDto;
+import org.example.productmanager.products.dto.ProductShowDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class CategoryController {
     // Neue Kategorie erstellen (POST /categories)
     @PostMapping("/create")
     @Operation(summary = "Erstellt eine neue Kategorie", operationId = "createCategory", description = "Erstellt eine neue Kategorie basierend auf den bereitgestellten Informationen.")
-    public ProductDetailDto createCategory(@RequestBody ProductCreateDto productCreateDto) {
-        return categoryService.createCategory(productCreateDto);
+    public ProductDetailDto createCategory(@RequestBody ProductDetailDto categoryCreateDto) {
+        return categoryService.createCategory(categoryCreateDto);
     }
 
     // Kategorie nach ID anzeigen (GET /categories/{id})
@@ -33,8 +34,8 @@ public class CategoryController {
     // Kategorie aktualisieren (PUT /categories/{id})
     @PutMapping("/{id}")
     @Operation(summary = "Aktualisiert mittels ID die Kategorie", operationId = "updateCategory", description = "Aktualisiert die Informationen einer Kategorie mit einer spezifischen ID.")
-    public ProductDetailDto updateCategory(@PathVariable Long id, @RequestBody ProductUpdateDto productUpdateDto) {
-        return categoryService.updateCategory(id, productUpdateDto);
+    public ProductDetailDto updateCategory(@PathVariable Long id, @RequestBody ProductDetailDto categoryUpdateDto) {
+        return categoryService.updateCategory(id, categoryUpdateDto);
     }
 
     // Kategorie löschen (DELETE /categories/{id})

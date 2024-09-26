@@ -1,9 +1,9 @@
 package org.example.productmanager.category;
 
-import org.example.productmanager.dto.*;
-import org.example.productmanager.products.ProductData;
 import org.example.productmanager.products.ProductRepository;
 import org.example.productmanager.products.ProductMapper;
+import org.example.productmanager.products.dto.ProductDetailDto;
+import org.example.productmanager.products.dto.ProductShowDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class CategoryService {
     @Autowired
     private ProductMapper productMapper;
 
-    public ProductDetailDto createCategory(ProductCreateDto productCreateDto) {
+    public ProductDetailDto createCategory(ProductDetailDto productCreateDto) {
         CategoryData category = categoryMapper.fromCreateDto(productCreateDto);
         return categoryMapper.toDetailDto(categoryRepository.save(category));
     }
@@ -36,7 +36,7 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
     }
 
-    public ProductDetailDto updateCategory(Long id, ProductUpdateDto productUpdateDto) {
+    public ProductDetailDto updateCategory(Long id, ProductDetailDto productUpdateDto) {
         CategoryData existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
 

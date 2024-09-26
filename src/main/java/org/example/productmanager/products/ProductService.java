@@ -1,6 +1,9 @@
 package org.example.productmanager.products;
 
-import org.example.productmanager.dto.*;
+import org.example.productmanager.products.dto.ProductCreateDto;
+import org.example.productmanager.products.dto.ProductDetailDto;
+import org.example.productmanager.products.dto.ProductShowDto;
+import org.example.productmanager.products.dto.ProductUpdateDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
