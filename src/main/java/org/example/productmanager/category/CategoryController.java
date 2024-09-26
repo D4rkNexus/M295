@@ -1,5 +1,7 @@
 package org.example.productmanager.category;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.productmanager.products.ProductData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Tag(name = "CategoryController")
 @RequestMapping("/categories")
 public class CategoryController {
 
@@ -15,6 +18,7 @@ public class CategoryController {
 
     // Neue Kategorie erstellen (POST /categories)
     @PostMapping
+    @Operation (summary = "Erstellt eine neue Kategorie")
     public CategoryData createCategory(@RequestBody CategoryData category) {
         return categoryService.createCategory(category);
     }
