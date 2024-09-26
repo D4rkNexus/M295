@@ -1,6 +1,6 @@
 package org.example.productmanager.products;
 
-import org.example.productmanager.dto.ProductShowDto;
+import org.example.productmanager.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,35 +17,36 @@ public class ProductService {
     private ProductMapper productMapper;
 
     public List<ProductShowDto> getAllProducts() {
-        return productRepository.findAll().stream().map(productMapper::toShowDto).collect(Collectors.toList());
+        // Alle Produkte laden und in ProductShowDto-Objekte konvertieren
+        return productRepository.findAll().stream()
+                .map(productMapper::toShowDto)
+                .collect(Collectors.toList());
     }
 
-    public ProductData createProduct(ProductData product) {
-        return productRepository.save(product);
+    public ProductShowDto createProduct(ProductCreateDto productCreateDto) {
+        // Neues Produkt erstellen und als ProductShowDto zurückgeben
+        ProductData product = productMapper.fromCreateDto(productCreateDto);
+        return productMapper.toShowDto(productRepository.save(product));
     }
 
-    public ProductData getProductById(Long id) {
+    public ProductDetailDto getProductById(Long id) {
+        // Produkt nach ID suchen und als ProductDetailDto zurückgeben
         return productRepository.findById(id)
+                .map(productMapper::toDetailDto)
                 .orElseThrow(() -> new RuntimeException("Product with id " + id + " not found"));
     }
 
-    public ProductData updateProduct(Long id, ProductData updatedProduct) {
+    public ProductShowDto updateProduct(Long id, ProductUpdateDto updatedProductDto) {
+        // Produkt nach ID suchen und aktualisieren
         ProductData existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product with id " + id + " not found"));
 
-        existingProduct.setSku(updatedProduct.getSku());
-        existingProduct.setActive(updatedProduct.isActive());
-        existingProduct.setName(updatedProduct.getName());
-        existingProduct.setImage(updatedProduct.getImage());
-        existingProduct.setDescription(updatedProduct.getDescription());
-        existingProduct.setPrice(updatedProduct.getPrice());
-        existingProduct.setStock(updatedProduct.getStock());
-        existingProduct.setCategory(updatedProduct.getCategory());
-
-        return productRepository.save(existingProduct);
+        productMapper.updateFromDto(updatedProductDto, existingProduct);
+        return productMapper.toShowDto(productRepository.save(existingProduct));
     }
 
     public void deleteProduct(Long id) {
+        // Produkt nach ID löschen
         productRepository.deleteById(id);
     }
 }

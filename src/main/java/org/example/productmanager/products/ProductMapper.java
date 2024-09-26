@@ -1,7 +1,6 @@
 package org.example.productmanager.products;
 
 import org.example.productmanager.dto.*;
-import org.example.productmanager.products.ProductData;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -14,7 +13,7 @@ public abstract class ProductMapper {
     @Mapping(source = "price", target = "price")
     @Mapping(source = "description", target = "description")
     @Mapping(source = "categoryId", target = "category.id")
-    public abstract ProductData toEntity(ProductCreateDto productCreateDto);
+    public abstract ProductData fromCreateDto(ProductCreateDto productCreateDto);
 
     // Mapping für das Anzeigen eines Produkts (Show)
     @Mapping(source = "id", target = "id")
@@ -34,5 +33,5 @@ public abstract class ProductMapper {
     @Mapping(source = "price", target = "price")
     @Mapping(source = "description", target = "description")
     @Mapping(source = "categoryId", target = "category.id")
-    public abstract void update(ProductUpdateDto productUpdateDto, @MappingTarget ProductData product);
+    public abstract void updateFromDto(ProductUpdateDto productUpdateDto, @MappingTarget ProductData product);
 }
