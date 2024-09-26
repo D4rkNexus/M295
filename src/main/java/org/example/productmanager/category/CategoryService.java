@@ -12,6 +12,7 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -20,16 +21,17 @@ public class CategoryService {
     }
 
     public CategoryData getCategoryById(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+        return categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
     }
 
     public CategoryData updateCategory(Long id, CategoryData updatedCategory) {
-        return categoryRepository.findById(id)
-                .map(category -> {
-                    category.setName(updatedCategory.getName());
-                    return categoryRepository.save(category);
-                })
-                .orElse(null);
+        CategoryData existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
+
+        existingCategory.setName(updatedCategory.getName());
+
+        return categoryRepository.save(existingCategory);
     }
 
     public void deleteCategory(Long id) {
@@ -43,6 +45,6 @@ public class CategoryService {
     public List<ProductData> getProductsByCategory(Long categoryId) {
         return categoryRepository.findById(categoryId)
                 .map(category -> productRepository.findByCategory(category.getId()))
-                .orElse(null);
+                .orElseThrow(() -> new RuntimeException("Category with id " + categoryId + " not found"));
     }
 }
