@@ -1,10 +1,6 @@
 package org.example.productmanager.products;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.productmanager.category.CategoryData;
@@ -14,9 +10,31 @@ import org.example.productmanager.category.CategoryData;
 @Setter
 public class ProductData {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(columnDefinition = "VARCHAR(100)", nullable = false)
+    private String sku;
+
+    @Column(columnDefinition = "TINYINT", nullable = false)
+    private boolean active;
+
+    @Column(columnDefinition = "VARCHAR(500)", nullable = false)
+    private String name;
+
+    @Column(columnDefinition = "VARCHAR(1000)")
+    private String image;
+
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String description;
+
+    @Column(columnDefinition = "FLOAT", nullable = false)
+    private float price;
+
+    @Column(columnDefinition = "INT", nullable = false)
+    private int stock;
+
     @ManyToOne
+    @JoinColumn(name = "category_Id", nullable = false)
     private CategoryData category;
 }

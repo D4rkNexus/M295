@@ -19,10 +19,36 @@ public class UserController {
     @GetMapping("repository2")
     public List<UserData> getAllUsers() {
         return userService.getAllUsers();
-        }
+    }
 
-    @PostMapping()
+    @PostMapping
     public UserData createUser(@RequestBody UserData user) {
         return userService.createUser(user);
-            }
-        }
+    }
+
+    // Benutzer authentifizieren (POST /users/authenticate)
+    @PostMapping("/authenticate")
+    public String authenticateUser(@RequestBody UserData loginData) {
+        return userService.authenticateUser(loginData.getUsername(), loginData.getPassword());
+    }
+
+    // Neuen Benutzer registrieren (POST /users/register)
+    @PostMapping("/register")
+    public UserData registerUser(@RequestBody UserData user) {
+        return userService.registerUser(user);
+    }
+
+    // Benutzer zum Administrator befördern (PUT /admin/promote/{id})
+    @PutMapping("/admin/promote/{id}")
+    public String promoteUserToAdmin(@PathVariable Long id) {
+        userService.promoteUserToAdmin(id);
+        return "Benutzer wurde zum Administrator befördert.";
+    }
+
+    // Initiale Daten in die Datenbank seeden (POST /admin/seed-database)
+    @PostMapping("/admin/seed-database")
+    public String seedDatabase() {
+        userService.seedDatabase();
+        return "Datenbank wurde initial befüllt.";
+    }
+}
