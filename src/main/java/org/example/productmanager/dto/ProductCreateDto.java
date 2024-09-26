@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
-@Schema (description = "ProductCreateDTO Schema")
+@Schema(description = "ProductCreateDTO Schema")
 public class ProductCreateDto {
 
     @NotNull
@@ -27,4 +27,12 @@ public class ProductCreateDto {
 
     @Schema(description = "ID des Benutzers, der das Produkt erstellt hat", example = "10")
     private Long createdByUserId;
+
+    public String getPassword() {
+        return null;
+    }
+
+    public String getUsername() {
+        return null;
+    }
 }
