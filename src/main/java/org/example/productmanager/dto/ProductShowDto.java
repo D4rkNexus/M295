@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
+@Schema (description = "ProductShowDto Schema")
 public class ProductShowDto {
 
     @NotNull

@@ -1,5 +1,6 @@
 package org.example.productmanager.products;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.example.productmanager.category.CategoryData;
 @Entity
 @Getter
 @Setter
+@Schema(description = "Product Schema")
 public class ProductData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

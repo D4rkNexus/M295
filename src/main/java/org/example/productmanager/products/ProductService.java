@@ -1,9 +1,11 @@
 package org.example.productmanager.products;
 
+import org.example.productmanager.dto.ProductShowDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -11,8 +13,11 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<ProductData> getAllProducts() {
-        return productRepository.findAll();
+    @Autowired
+    private ProductMapper productMapper;
+
+    public List<ProductShowDto> getAllProducts() {
+        return productRepository.findAll().stream().map(productMapper::toShowDto).collect(Collectors.toList());
     }
 
     public ProductData createProduct(ProductData product) {

@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
-@Tag(name = "Produkte")
 @Schema (description = "ProductCreateDTO Schema")
 public class ProductCreateDto {
 

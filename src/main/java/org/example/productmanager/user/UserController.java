@@ -1,5 +1,6 @@
 package org.example.productmanager.user;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,31 +18,36 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    @GetMapping("repository2")
+    // Auflisten aller User
+    @GetMapping("/list")
+    @Operation(summary = "Listet alle User auf")
     public List<UserData> getAllUsers() {
         return userService.getAllUsers();
     }
 
-    @PostMapping
+    @PostMapping("/create")
+    @Operation (summary = "Erstellt einen neuen User")
     public UserData createUser(@RequestBody UserData user) {
         return userService.createUser(user);
     }
 
     // Benutzer authentifizieren (POST /users/authenticate)
     @PostMapping("/authenticate")
+    @Operation (summary = "Benutzer authentifizieren")
     public String authenticateUser(@RequestBody UserData loginData) {
         return userService.authenticateUser(loginData.getUsername(), loginData.getPassword());
     }
 
     // Neuen Benutzer registrieren (POST /users/register)
     @PostMapping("/register")
+    @Operation (summary = "Einen neuen Benuzer erstellen")
     public UserData registerUser(@RequestBody UserData user) {
         return userService.registerUser(user);
     }
 
     // Benutzer zum Administrator befördern (PUT /admin/promote/{id})
     @PutMapping("/admin/promote/{id}")
+    @Operation (summary = "Benutzer zum Adminstrator befördern")
     public String promoteUserToAdmin(@PathVariable Long id) {
         userService.promoteUserToAdmin(id);
         return "Benutzer wurde zum Administrator befördert.";
@@ -49,6 +55,7 @@ public class UserController {
 
     // Initiale Daten in die Datenbank seeden (POST /admin/seed-database)
     @PostMapping("/admin/seed-database")
+    @Operation (summary = "Initiale Daten in die Datenbank seeden")
     public String seedDatabase() {
         userService.seedDatabase();
         return "Datenbank wurde initial befüllt.";
