@@ -1,4 +1,4 @@
-package org.example.productmanager.products.dto;
+package org.example.productmanager.user.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

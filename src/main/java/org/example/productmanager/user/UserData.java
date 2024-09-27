@@ -24,6 +24,7 @@ public class UserData {
     @Column(columnDefinition = "tinyint", nullable = false)
     private Boolean isAdmin;
 
+    @Getter
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String email;
 
@@ -39,4 +40,5 @@ public class UserData {
             return new ArrayList<>();
         }
     }
+
 }

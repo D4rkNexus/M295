@@ -1,5 +1,6 @@
 package org.example.productmanager.user;
 
+import org.example.productmanager.user.dto.LoginRequestDto;
 import org.example.productmanager.products.dto.ProductCreateDto;
 import org.example.productmanager.products.dto.ProductUpdateDto;
 import org.example.productmanager.user.dto.RegisterDto;
@@ -83,5 +84,9 @@ public class UserService {
 
     public UserData findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public Optional<UserData> getUserWithCredentials(LoginRequestDto loginRequestDto) {
+        return userRepository.findByUsernameAndPassword(loginRequestDto.getEmail(), loginRequestDto.getPassword());
     }
 }
