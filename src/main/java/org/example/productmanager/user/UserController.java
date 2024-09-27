@@ -27,10 +27,14 @@ public class UserController {
     @PostMapping("/auth")
     @Operation(summary = "Benutzer authentifizieren", operationId = "authenticateUser", description = "Authentifiziert einen Benutzer basierend auf den bereitgestellten Anmeldedaten.")
     public String authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
-        // Optional<UserData> entpacken
+        // Entpackt das Optional<UserData> Objekt, indem versucht wird,
+        // den Benutzer mit den angegebenen Anmeldeinformationen zu finden.
         UserData user = userService.getUserWithCredentials(loginRequestDto)
+                // Wirft eine RuntimeException, wenn die Anmeldeinformationen ungültig sind.
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
-        // Token generieren
+
+        // Generiert einen JWT-Token für den authentifizierten Benutzer
+        // und gibt diesen zurück.
         return tokenService.generateToken(user);
     }
 

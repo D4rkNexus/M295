@@ -1,5 +1,7 @@
 package org.example.productmanager.category;
 
+import org.example.productmanager.category.dto.CategoryCreateDto;
+import org.example.productmanager.category.dto.CategoryUpdateDto;
 import org.example.productmanager.products.ProductRepository;
 import org.example.productmanager.products.ProductMapper;
 import org.example.productmanager.products.dto.ProductDetailDto;
@@ -25,7 +27,7 @@ public class CategoryService {
     @Autowired
     private ProductMapper productMapper;
 
-    public ProductDetailDto createCategory(ProductDetailDto productCreateDto) {
+    public ProductDetailDto createCategory(CategoryCreateDto productCreateDto) {
         CategoryData category = categoryMapper.fromCreateDto(productCreateDto);
         return categoryMapper.toDetailDto(categoryRepository.save(category));
     }
@@ -36,7 +38,7 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
     }
 
-    public ProductDetailDto updateCategory(Long id, ProductDetailDto productUpdateDto) {
+    public ProductDetailDto updateCategory(Long id, CategoryUpdateDto productUpdateDto) {
         CategoryData existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
 
