@@ -2,11 +2,13 @@ package org.example.productmanager.user;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.example.productmanager.products.dto.ProductShowDto;
 import org.example.productmanager.user.dto.LoginRequestDto;
 import org.example.productmanager.products.dto.ProductCreateDto;
 import org.example.productmanager.user.dto.RegisterDto;
 import org.example.productmanager.user.security.TokenWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 

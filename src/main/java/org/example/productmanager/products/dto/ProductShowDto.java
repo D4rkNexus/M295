@@ -3,6 +3,8 @@ package org.example.productmanager.products.dto;
 import lombok.Data;
 import jakarta.validation.constraints.NotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Data
 @Schema (description = "ProductShowDto Schema")
@@ -22,4 +24,5 @@ public class ProductShowDto {
 
     @Schema(description = "ID des Benutzers, der das Produkt erstellt hat", example = "10")
     private Long createdByUserId;
-}
+    }
+
