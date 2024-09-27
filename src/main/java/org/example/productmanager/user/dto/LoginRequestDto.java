@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 public class LoginRequestDto {
 
 
-    public String getEmail;
     @NotNull
     @Schema(description = "E-Mail oder Benutzername des Benutzers", example = "user@example.com", required = true)
     private String email;

@@ -2,18 +2,13 @@ package org.example.productmanager.user;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.example.productmanager.products.dto.ProductShowDto;
 import org.example.productmanager.user.dto.LoginRequestDto;
 import org.example.productmanager.products.dto.ProductCreateDto;
 import org.example.productmanager.user.dto.RegisterDto;
-import org.example.productmanager.user.security.TokenWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Tag(name = "UserController", description = "Controller für Benutzerverwaltung")
@@ -29,7 +24,7 @@ public class UserController {
         this.tokenService = tokenService;
     }
 
-    @PostMapping("/authenticate")
+    @PostMapping("/auth")
     @Operation(summary = "Benutzer authentifizieren", operationId = "authenticateUser", description = "Authentifiziert einen Benutzer basierend auf den bereitgestellten Anmeldedaten.")
     public String authenticateUser(@RequestBody LoginRequestDto loginRequestDto) {
         // Optional<UserData> entpacken

@@ -44,13 +44,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserData user = userService.findUserByEmail(email);
-            MyUserPrincipal userPrincipal = new MyUserPrincipal(user);
-            userPrincipal.setEmail(user.getEmail());
-            UsernamePasswordAuthenticationToken authenticationToken =
-                    new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
+            try {
+                UserData user = userService.findUserByEmail(email);
+                MyUserPrincipal userPrincipal = new MyUserPrincipal(user);
+                UsernamePasswordAuthenticationToken authenticationToken =
+                        new UsernamePasswordAuthenticationToken(userPrincipal, null, userPrincipal.getAuthorities());
 
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                System.out.println("User authenticated: " + email);
+            } catch (Exception e) {
+                System.err.println("Authentication error: " + e.getMessage());
+            }
         }
 
         chain.doFilter(request, response);
