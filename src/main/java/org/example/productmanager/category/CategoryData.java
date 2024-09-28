@@ -14,4 +14,7 @@ public class CategoryData {
 
     @Column(columnDefinition = "VARCHAR(255)", nullable = false)
     private String name;
+
+    @Column(nullable = false)
+    private Boolean active;
 }

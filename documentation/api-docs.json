@@ -1,0 +1,1396 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "CategoryController",
+      "description": "Controller für Kategorien"
+    },
+    {
+      "name": "ProductController",
+      "description": "Controller für Produkte"
+    },
+    {
+      "name": "UserController",
+      "description": "Controller für Benutzerverwaltung"
+    }
+  ],
+  "paths": {
+    "/profile": {
+      "get": {
+        "tags": [
+          "profile-controller"
+        ],
+        "operationId": "listAllFormsOfMetadata_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RepresentationModelObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/userDatas": {
+      "get": {
+        "tags": [
+          "profile-controller"
+        ],
+        "operationId": "descriptor_1_1_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/alps+json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/schema+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JsonSchema"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/userDatas": {
+      "get": {
+        "tags": [
+          "user-data-entity-controller"
+        ],
+        "description": "get-userdata",
+        "operationId": "getCollectionResource-userdata-get_1",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelUserData"
+                }
+              },
+              "application/x-spring-data-compact+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PagedModelEntityModelUserData"
+                }
+              },
+              "text/uri-list": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-data-entity-controller"
+        ],
+        "description": "create-userdata",
+        "operationId": "postCollectionResource-userdata-post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/userDatas/search/findByEmail": {
+      "get": {
+        "tags": [
+          "user-data-search-controller"
+        ],
+        "operationId": "executeSearch-userdata-get",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/userDatas/search/findByUsernameAndPassword": {
+      "get": {
+        "tags": [
+          "user-data-search-controller"
+        ],
+        "operationId": "executeSearch-userdata-get_1",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/userDatas/{id}": {
+      "get": {
+        "tags": [
+          "user-data-entity-controller"
+        ],
+        "description": "get-userdata",
+        "operationId": "getItemResource-userdata-get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user-data-entity-controller"
+        ],
+        "description": "update-userdata",
+        "operationId": "putItemResource-userdata-put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "user-data-entity-controller"
+        ],
+        "description": "delete-userdata",
+        "operationId": "deleteItemResource-userdata-delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "user-data-entity-controller"
+        ],
+        "description": "patch-userdata",
+        "operationId": "patchItemResource-userdata-patch",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDataRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/users/admin/promote/{id}": {
+      "put": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "Befördert einen Benutzer zum Administrator",
+        "description": "Befördert einen Benutzer mit der angegebenen ID zum Administrator.",
+        "operationId": "promoteUserToAdmin",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "ProductController"
+        ],
+        "summary": "Produkt mittels ID anzeigen",
+        "description": "Gibt die Details eines Produkts mit einer spezifischen ID zurück.",
+        "operationId": "getProductById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetailDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductController"
+        ],
+        "summary": "Produkt mittels ID aktualisieren",
+        "description": "Aktualisiert die Informationen eines Produkts mit einer spezifischen ID.",
+        "operationId": "updateProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductUpdateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductShowDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductController"
+        ],
+        "summary": "Produkt mittels ID löschen",
+        "description": "Löscht ein Produkt mit einer spezifischen ID.",
+        "operationId": "deleteProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/categories/{id}": {
+      "get": {
+        "tags": [
+          "CategoryController"
+        ],
+        "summary": "Zeigt eine Kategorie mittels ID",
+        "description": "Gibt die Details einer Kategorie mit einer spezifischen ID zurück.",
+        "operationId": "getCategoryById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetailDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CategoryController"
+        ],
+        "summary": "Aktualisiert mittels ID die Kategorie",
+        "description": "Aktualisiert die Informationen einer Kategorie mit einer spezifischen ID.",
+        "operationId": "updateCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDetailDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetailDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CategoryController"
+        ],
+        "summary": "Löscht mittels ID eine Kategorie",
+        "description": "Löscht eine Kategorie mit einer spezifischen ID.",
+        "operationId": "deleteCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "Registriert einen neuen Benutzer",
+        "description": "Registriert einen neuen Benutzer basierend auf den bereitgestellten Informationen.",
+        "operationId": "registerUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/create": {
+      "post": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "Erstellt einen neuen User",
+        "description": "Erstellt einen neuen Benutzer basierend auf den bereitgestellten Informationen.",
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/auth": {
+      "post": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "Benutzer authentifizieren",
+        "description": "Authentifiziert einen Benutzer basierend auf den bereitgestellten Anmeldedaten.",
+        "operationId": "authenticateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/admin/seed-database": {
+      "post": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "Seeden der initialen Datenbank",
+        "description": "Befüllt die Datenbank initial mit vorgegebenen Daten.",
+        "operationId": "seedDatabase",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "ProductController"
+        ],
+        "summary": "Alle Produkte auflisten",
+        "description": "Listet alle vorhandenen Produkte auf.",
+        "operationId": "getAllProducts",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductShowDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProductController"
+        ],
+        "summary": "Neues Produkt erstellen",
+        "description": "Erstellt ein neues Produkt basierend auf den bereitgestellten Informationen.",
+        "operationId": "createProduct",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductCreateDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductShowDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/create": {
+      "post": {
+        "tags": [
+          "CategoryController"
+        ],
+        "summary": "Erstellt eine neue Kategorie",
+        "description": "Erstellt eine neue Kategorie basierend auf den bereitgestellten Informationen.",
+        "operationId": "createCategory",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductDetailDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/list": {
+      "get": {
+        "tags": [
+          "UserController"
+        ],
+        "summary": "Listet alle User auf",
+        "description": "Gibt eine Liste aller Benutzer zurück.",
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserData"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/{id}/products": {
+      "get": {
+        "tags": [
+          "CategoryController"
+        ],
+        "summary": "Listet alle Produkte in einer Kategorie auf",
+        "description": "Listet alle Produkte auf, die einer spezifischen Kategorie zugeordnet sind.",
+        "operationId": "getProductsByCategory",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductShowDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/list": {
+      "get": {
+        "tags": [
+          "CategoryController"
+        ],
+        "summary": "Listet alle Kategorien auf",
+        "description": "Listet alle vorhandenen Kategorien auf.",
+        "operationId": "getAllCategories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDetailDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbstractJsonSchemaPropertyObject": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "readOnly": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Item": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
+            }
+          },
+          "requiredProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "JsonSchema": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbstractJsonSchemaPropertyObject"
+            }
+          },
+          "requiredProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/Item"
+            }
+          },
+          "type": {
+            "type": "string"
+          },
+          "$schema": {
+            "type": "string"
+          }
+        }
+      },
+      "Links": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/Link"
+        }
+      },
+      "RepresentationModelObject": {
+        "type": "object",
+        "properties": {
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "UserData": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "EntityModelUserData": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          }
+        }
+      },
+      "PageMetadata": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "number": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "PagedModelEntityModelUserData": {
+        "type": "object",
+        "properties": {
+          "_embedded": {
+            "type": "object",
+            "properties": {
+              "userDatas": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EntityModelUserData"
+                }
+              }
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/Links"
+          },
+          "page": {
+            "$ref": "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "UserDataRequestBody": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ProductUpdateDto": {
+        "required": [
+          "categoryId",
+          "description",
+          "name",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name des Produkts",
+            "example": "Laptop"
+          },
+          "price": {
+            "type": "number",
+            "description": "Preis des Produkts",
+            "format": "double",
+            "example": 999.99
+          },
+          "description": {
+            "type": "string",
+            "description": "Beschreibung des Produkts",
+            "example": "Ein leistungsstarker Laptop"
+          },
+          "categoryId": {
+            "type": "integer",
+            "description": "ID der zugehörigen Kategorie",
+            "format": "int64",
+            "example": 2
+          },
+          "updatedByUserId": {
+            "type": "integer",
+            "description": "ID des Benutzers, der das Produkt aktualisiert hat",
+            "format": "int64",
+            "example": 10
+          }
+        }
+      },
+      "ProductShowDto": {
+        "required": [
+          "id",
+          "name",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Einzigartige Identifikationsnummer des Produkts",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Name des Produkts",
+            "example": "Laptop"
+          },
+          "price": {
+            "type": "number",
+            "description": "Preis des Produkts",
+            "format": "double",
+            "example": 999.99
+          },
+          "createdByUserId": {
+            "type": "integer",
+            "description": "ID des Benutzers, der das Produkt erstellt hat",
+            "format": "int64",
+            "example": 10
+          }
+        },
+        "description": "ProductShowDto Schema"
+      },
+      "ProductDetailDto": {
+        "required": [
+          "description",
+          "id",
+          "name",
+          "price"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Einzigartige Identifikationsnummer des Produkts",
+            "format": "int64",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "description": "Name des Produkts",
+            "example": "Laptop"
+          },
+          "price": {
+            "type": "number",
+            "description": "Preis des Produkts",
+            "format": "double",
+            "example": 999.99
+          },
+          "description": {
+            "type": "string",
+            "description": "Beschreibung des Produkts",
+            "example": "Ein leistungsstarker Laptop"
+          },
+          "createdByUserId": {
+            "type": "integer",
+            "description": "ID des Benutzers, der das Produkt erstellt hat",
+            "format": "int64",
+            "example": 10
+          }
+        },
+        "description": "ProductDetailDto Schema"
+      },
+      "RegisterDto": {
+        "required": [
+          "email",
+          "isAdmin",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Das Email eines Users"
+          },
+          "password": {
+            "type": "string",
+            "description": "Passwort eines Users oder neues Passwort"
+          },
+          "isAdmin": {
+            "type": "boolean",
+            "description": "isAdmin aktiviert oder nicht"
+          }
+        }
+      },
+      "LoginRequestDto": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "E-Mail oder Benutzername des Benutzers",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Passwort des Benutzers",
+            "example": "securePassword123"
+          }
+        },
+        "description": "Schema für Login-Anfragen"
+      },
+      "ProductCreateDto": {
+        "required": [
+          "active",
+          "categoryId",
+          "description",
+          "image",
+          "name",
+          "price",
+          "sku",
+          "stock"
+        ],
+        "type": "object",
+        "properties": {
+          "sku": {
+            "type": "string",
+            "description": "SKU des Produkts",
+            "example": "ABC123"
+          },
+          "active": {
+            "type": "boolean",
+            "description": "Ob das Produkt aktiv ist",
+            "example": true
+          },
+          "name": {
+            "type": "string",
+            "description": "Name des Produkts",
+            "example": "Laptop"
+          },
+          "image": {
+            "type": "string",
+            "description": "Bild des Produkts",
+            "example": "http://example.com/image.jpg"
+          },
+          "description": {
+            "type": "string",
+            "description": "Beschreibung des Produkts",
+            "example": "Ein leistungsstarker Laptop"
+          },
+          "price": {
+            "type": "number",
+            "description": "Preis des Produkts",
+            "format": "float",
+            "example": 999.99
+          },
+          "stock": {
+            "type": "integer",
+            "description": "Lagerbestand des Produkts",
+            "format": "int32",
+            "example": 50
+          },
+          "categoryId": {
+            "type": "integer",
+            "description": "ID der zugehörigen Kategorie",
+            "format": "int64",
+            "example": 2
+          },
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "description": "ProductCreateDTO Schema"
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "hreflang": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "deprecation": {
+            "type": "string"
+          },
+          "profile": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "templated": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
